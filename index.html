@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pet Plant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .plant-image {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .plant-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 600px;
+        }
+
+        .health-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .navbar {
+            margin-bottom: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            /* Ensures the navbar is above other content */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Welcome back, User!</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/index.html">SignOut</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 80px;">
+        <!-- Alerts section -->
+        <div id="alerts">
+            <div id="alertSunLow" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+                Move me to a brighter place!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div id="alertSunHigh" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+                Move me to a shadier area!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div id="alertSoilAcidic" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                Soil is too acidic!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div id="alertSoilBasic" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                Soil is too basic!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div id="alertWaterLow" class="alert alert-info alert-dismissible fade show d-none" role="alert">
+                Water me please!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div id="alertWaterHigh" class="alert alert-info alert-dismissible fade show d-none" role="alert">
+                Too much water!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div id="alertPlantHappy" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                Yayyy I am healthyyy!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5 plant-image">
+                <img id="plantImage" src="healthy_plant.jpg" class="img-thumbnail img-fluid" alt="Plant image" />
+            </div>
+            <div class="col-lg-6">
+                <h2>Lana's Health Bar</h2>
+                <div class="card health-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Water Level</h5>
+                        <div class="progress" role="progressbar" aria-label="Water level" aria-valuenow="50"
+                            aria-valuemin="0" aria-valuemax="100">
+                            <div id="waterBar" class="progress-bar bg-info text-dark" style="width: 0%">0%</div>
+                        </div>
+                        <a href="/water.html" class="btn btn-primary mt-3">Adjust Water Level</a>
+                    </div>
+                </div>
+                <div class="card health-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Sunlight Intensity</h5>
+                        <div class="progress" role="progressbar" aria-label="Sunlight intensity" aria-valuenow="75"
+                            aria-valuemin="0" aria-valuemax="100">
+                            <div id="sunlightBar" class="progress-bar bg-warning text-dark" style="width: 70%">70%</div>
+                        </div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Know More
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Sunlight Requirements for
+                                            Different Plants
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        The optimal sunlight for plant growth varies by type:
+                                        <br>
+
+                                        <br>
+                                        <ul>
+                                            <li><b>Full Sun Plants:</b></li> Thrive with 6-8+ hours of direct sunlight
+                                            daily (50-100% of daylight hours).
+                                            <br>
+                                            <li><b>Partial Sun/Partial Shade Plants:</b></li> Need 3-6 hours of direct
+                                            sunlight daily (25-50% of daylight hours).
+                                            <br>
+                                            <li><b>Full Shade Plants: </b></li>Require less than 3 hours of direct
+                                            sunlight daily (less than 25% of daylight hours).
+
+                                            <br>
+                                        </ul>
+                                        To know more <a
+                                            href="https://farmityourself.com/how-much-sunlight-do-plants-need/">click
+                                            here</a>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card health-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Soil pH</h5>
+                        <div class="progress" role="progressbar" aria-label="Soil pH" aria-valuenow="7"
+                            aria-valuemin="0" aria-valuemax="14">
+                            <div id="phBar" class="progress-bar bg-danger" style="width: 50%">7</div>
+                        </div>
+                        <a href="/soilph.html" class="btn btn-primary mt-3">Adjust Soil pH</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Retrieve stored values on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const storedPH = localStorage.getItem('phLevel');
+            const storedWater = localStorage.getItem('waterLevel');
+            const storedSunlight = localStorage.getItem('sunlightIntensity');
+
+            // Default values if not set
+            const water = storedWater !== null ? parseInt(storedWater, 10) : 0;
+            const ph = storedPH !== null ? parseFloat(storedPH) : 7.0;
+            const sunlight = storedSunlight !== null ? parseInt(storedSunlight, 10) : 70;
+
+            // Update pH level on home page
+            const phBar = document.getElementById('phBar');
+            phBar.style.width = (ph / 14 * 100) + '%';
+            phBar.innerText = ph;
+
+            // Update water level on home page
+            const waterBar = document.getElementById('waterBar');
+            waterBar.style.width = water + '%';
+            waterBar.innerText = water + '%';
+
+            // Update sunlight level on home page
+            const sunlightBar = document.getElementById('sunlightBar');
+            sunlightBar.style.width = sunlight + '%';
+            sunlightBar.innerText = sunlight + '%';
+
+            // Update plant image based on conditions
+            updatePlantImage(water, sunlight, ph);
+
+            // Show alerts based on conditions
+            showAlerts(water, sunlight, ph);
+        });
+
+        function updatePlantImage(water, sunlight, ph) {
+            const plantImage = document.getElementById('plantImage');
+            let healthyConditions = 0;
+
+            if (water >= 20 && water <= 60) healthyConditions++;
+            if (sunlight >= 50 && sunlight <= 75) healthyConditions++;
+            if (ph >= 6.0 && ph <= 7.5) healthyConditions++;
+
+            if (healthyConditions === 3) {
+                plantImage.src = 'healthy_plant.png';
+                plantImage.alt = 'Healthy plant';
+            } else if (healthyConditions === 2) {
+                plantImage.src = 'half_healthy_plant.png';
+                plantImage.alt = 'Half healthy plant';
+            } else if (healthyConditions === 1) {
+                plantImage.src = 'half_dead_plant.png';
+                plantImage.alt = 'Half dead plant';
+            } else {
+                plantImage.src = 'dead_plant.png';
+                plantImage.alt = 'Dead plant';
+            }
+        }
+
+        function showAlerts(water, sunlight, ph) {
+            let allConditionsMet = true;
+
+            if (sunlight < 50) {
+                document.getElementById('alertSunLow').classList.remove('d-none');
+                allConditionsMet = false;
+            }
+            if (sunlight > 75) {
+                document.getElementById('alertSunHigh').classList.remove('d-none');
+                allConditionsMet = false;
+            }
+            if (ph < 6.0) {
+                document.getElementById('alertSoilAcidic').classList.remove('d-none');
+                allConditionsMet = false;
+            }
+            if (ph > 7.5) {
+                document.getElementById('alertSoilBasic').classList.remove('d-none');
+                allConditionsMet = false;
+            }
+            if (water < 20) {
+                document.getElementById('alertWaterLow').classList.remove('d-none');
+                allConditionsMet = false;
+            }
+            if (water > 60) {
+                document.getElementById('alertWaterHigh').classList.remove('d-none');
+                allConditionsMet = false;
+            }
+
+            if (allConditionsMet) {
+                document.getElementById('alertPlantHappy').classList.remove('d-none');
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>
